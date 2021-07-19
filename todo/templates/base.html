@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block tittle %} {% endblock %} - Todo List</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <h1> Homework list</h1>
+<nav>
+    <ul>
+        {% if g.user %}
+        <li> <span>{{g.user['username']}}</span></li>
+        <li><a href="{{url_for('auth.logout')}}">Cerrar Sesion</a></li>
+        {% else %}
+        <li><a href="{{url_for('auth.register')}}">Registrarte </a></li>
+        <li><a href="{{url_for('auth.login')}}">Iniciar Secion</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+        <div class="flask">{{message}}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
+</body>
+</html>
