@@ -1,11 +1,15 @@
 {%extends 'base.html' %}
 {% block header %}
-<h1>{% block title %}Nuevo Todo {% endblock %}</h1>
+<h2>{% block title %}Nuevo Todo {% endblock %}</h2>
 {%endblock%}
 {% block content %}
-<form method='POST'>
-    <label for='description'>Descripción</label>
-    <input name='description' id='description' required />
-    <input type='submit' value='SAVE'>
+
+<form method="POST" class="p-3">
+    <div class="mb-3">
+        <label for='description'>Descriptión</label>
+        <input name='description' id='description' required />
+    </div>
+    <input type='submit' value='SAVE' class="btn btn-success">
 </form>
+
 {% endblock %}

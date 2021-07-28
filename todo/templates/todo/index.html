@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 
 {% block header %}
-<h1>{% block title %}Todos{% endblock %}</h1>
+<h2>{% block title %}Todos{% endblock %}</h2>
     {% if g.user %}
-    <a class="action " href='{{url_for("todo.create")}}''>Nuevo</a>
+    <a class="action " href='{{url_for("todo.create")}}''>Add</a>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-<ul>
+<div class="todos">
     {% for todo in todos %}
     <li class="todo">
         <div>
-            <h1>
+            <h3>
                 {% if todo["completed"] == 1 %}
-                <strike>{{todo["description"]}}</strike>
+                  {{todo["description"]}} <span> x</span> 
                 {% else %}
                 {{todo["description"]}}
 
                 {% endif %}
-            </h1>
+            </h3>
             <div class="about">{{ todo["created_at"].strftime("%d-%m-%Y")}}</div>
-            <a class="action" href='{{ url_for("todo.update", id=todo["id"])}}''>Editar</a>
+            <a class="action" href='{{ url_for("todo.update", id=todo["id"])}}''>Edit</a>
 
         </div>
     </li>
@@ -29,5 +29,5 @@
     <hr>
     {% endif %}
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

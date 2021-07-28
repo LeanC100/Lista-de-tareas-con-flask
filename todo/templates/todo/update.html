@@ -1,19 +1,25 @@
 {% extends "base.html" %}
 
 {% block header %}
-<h1>{% block title %}Editar {{ todo["description"]}} {% endblock %}</h1>
+<h2>{% block title %}Homework edit</h2> <h3>{{ todo["description"]}} {% endblock %}</h3>
 {% endblock %}
 
 {% block content %}
-<form method="post">
-    <label for="description">Descripción</label>
-    <input name="description" id="description" value='{{request.form[" description"] or todo["description"]}}' required>
-    <label for="completed">Completado</label>
-    <input type="checkbox" name="completed" id="completed" {% if todo["completed"]==1 %}checked{% endif %} />
-    <input type="submit" value="SAVE" /> 
+
+<form method="POST" class="p-3">
+    <div class="mb-3">
+        <label for="description">Descriptión</label>
+        <input name="description" id="description" value='{{request.form["description"] or todo["description"]}}' required>
+    </div>
+    <div class="mb-3">
+        <label for="completed">Completed</label>
+        <input type="checkbox" name="completed" id="completed" {% if todo['completed']==1 %}checked{% endif %} />
+    </div>
+
+    <input type="submit" value="SAVE" class="btn btn-success" />
 </form>
-<form action='{{ url_for("todo.delete", id=todo["id"])}}' method="post">
-    <input class="danger" type="submit" value="Eliminar"
-        onclick="return confirm ('Estas seguro de querer eliminarlo?')">
+<form class="p-3" action='{{ url_for("todo.delete", id=todo["id"])}}' method="POST">
+    <input class="btn btn-danger" type="submit" value="DELETE" onclick="return confirm ('Delete?')" >
 </form>
+
 {% endblock %}

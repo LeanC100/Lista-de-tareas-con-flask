@@ -38,8 +38,9 @@ def create ():
         else:
             db, c = get_db()
             c.execute(
-                "insert into todo (description, completed, created_by)"
-                " values (%s, %s, %s)",
+                'insert into todo (description, completed, created_by)'
+                ' values (%s, %s, %s)',
+                            # si se encuentra completado o no
                 (description, False, g.user["id"])
             )
             db.commit()
@@ -47,11 +48,13 @@ def create ():
 
     return render_template("todo/create.html")
 
+# obtiene todo
 def get_todo(id):
     db, c = get_db()
+    #seleccoiona el todo que seleccionamos
     c.execute(
-        "select t.id, t.description, t.completed, t.created_by, t.created_at, u.username "
-        "from todo t join user u on t.created_by = u.id where t.id = %s",
+        'select t.id, t.description, t.completed, t.created_by, t.created_at, u.username '
+        'from todo t join user u on t.created_by = u.id where t.id = %s',
         (id,)
     )
 
@@ -78,10 +81,12 @@ def update(id):
         if error is not None:
             flash(error)
         else:
+            # saca base de datos y el cursor
             db, c = get_db()
+            # Actualiza la descripcion
             c.execute(
-                "update todo set description = %s, completed = %s"
-                " where id = %s and created_by = %s",
+                'update todo set description = %s, completed = %s'
+                ' where id = %s and created_by = %s',
                 (description, completed, id, g.user["id"])
             )
             db.commit()
